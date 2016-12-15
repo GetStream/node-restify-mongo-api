@@ -1,1 +1,1 @@
-# node-restify-mongo-api
+# Starter project for a REST API with Node.js, Restify & MongoDB
