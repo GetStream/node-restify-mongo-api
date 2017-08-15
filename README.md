@@ -1,3 +1,5 @@
 # Starter project for a REST API with Node.js, Restify & MongoDB
 
-For a breakdown on this project, please read http://blog.getstream.io/in-depth-guide-on-building-a-rest-api-with-node-js-restify-mongodb.
+For a breakdown on this project, see the following guide:
+
+https://getstream.io/blog/depth-guide-building-rest-api-node-js-restify-mongodb/
