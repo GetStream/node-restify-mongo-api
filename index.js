@@ -45,14 +45,6 @@
  server.use(restifyPlugins.fullResponse())
 
  /**
-  * Error Handling
-  */
- server.on('uncaughtException', (req, res, route, err) => {
-     log.error(err.stack)
-     res.send(err)
- });
-
- /**
   * Lift Server, Connect to DB & Bind Routes
   */
  server.listen(config.port, function() {
