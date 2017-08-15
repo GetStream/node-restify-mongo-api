@@ -16,6 +16,10 @@ const Todo = require('../models/todo')
  */
 server.post('/todos', function(req, res, next) {
 
+    if (!req.is('application/json')) {
+        return next(new errors.InvalidContentError('Expects \'application/json\''));
+    }
+
     let data = req.body || {}
 
     let todo = new Todo(data)
@@ -79,6 +83,10 @@ server.get('/todos/:todo_id', function(req, res, next) {
  * UPDATE
  */
 server.put('/todos/:todo_id', function(req, res, next) {
+
+    if (!req.is('application/json')) {
+        return next(new errors.InvalidContentError('Expects \'application/json\''));
+    }
 
     let data = req.body || {}
 
