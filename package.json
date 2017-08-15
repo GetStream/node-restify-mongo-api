@@ -24,12 +24,13 @@
   "homepage": "https://github.com/GetStream/node-restify-mongo-api#readme",
   "dependencies": {
     "bunyan-winston-adapter": "^0.2.0",
-    "lodash": "^4.17.2",
-    "mongoose": "^4.7.2",
-    "mongoose-api-query": "^0.1.1-pre",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.3",
     "mongoose-createdmodified": "0.0.2",
-    "restify": "^4.3.0",
+    "mongoose-string-query": "^0.2.5",
+    "restify": "^5.0.0",
     "restify-errors": "^4.3.0",
-    "winston": "^2.3.0"
+    "restify-plugins": "^1.6.0",
+    "winston": "^2.3.1"
   }
 }

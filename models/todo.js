@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose'),
-      mongooseApiQuery = require('mongoose-api-query'),
+      mongooseStringQuery = require('mongoose-string-query'),
       createdModified = require('mongoose-createdmodified').createdModifiedPlugin
 
 const TodoSchema = new mongoose.Schema({
@@ -17,7 +17,7 @@ const TodoSchema = new mongoose.Schema({
     },
 }, { minimize: false });
 
-TodoSchema.plugin(mongooseApiQuery)
+TodoSchema.plugin(mongooseStringQuery)
 TodoSchema.plugin(createdModified, { index: true })
 
 const Todo = mongoose.model('Todo', TodoSchema)
