@@ -17,22 +17,18 @@
 		"MongoDB",
 		"Restify"
 	],
-	"author": "Nick Parsons <nick@getstream.io>",
+	"author": "Nick Parsons <nparsons08@gmail.com>",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/GetStream/node-restify-mongo-api/issues"
 	},
 	"homepage": "https://github.com/GetStream/node-restify-mongo-api#readme",
 	"dependencies": {
-		"bunyan": "^1.8.12",
-		"bunyan-winston-adapter": "^0.2.0",
-		"lodash": "^4.17.4",
 		"mongoose": "^4.11.8",
 		"mongoose-string-query": "^0.2.5",
 		"mongoose-timestamp": "^0.6.0",
 		"restify": "^5.2.0",
 		"restify-errors": "^5.0.0",
-		"restify-plugins": "^1.6.0",
-		"winston": "^2.3.1"
+		"restify-plugins": "^1.6.0"
 	}
 }
