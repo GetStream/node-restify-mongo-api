@@ -1,78 +1,47 @@
-'use strict'
-
 /**
  * Module Dependencies
  */
- const config        = require('./config'),
-       restify       = require('restify'),
-       bunyan        = require('bunyan'),
-       winston       = require('winston'),
-       bunyanWinston = require('bunyan-winston-adapter'),
-       mongoose      = require('mongoose'),
-       restifyPlugins = require('restify-plugins')
+const config = require('./config');
+const restify = require('restify');
+const mongoose = require('mongoose');
+const restifyPlugins = require('restify-plugins');
 
-
- /**
- * Logging
- */
- global.log = new winston.Logger({
-   transports: [
-       new winston.transports.Console({
-           level: 'info',
-           timestamp: () => {
-               return new Date().toString()
-           },
-           json: true
-       }),
-   ]
- })
-
- /**
+/**
   * Initialize Server
   */
- global.server = restify.createServer({
-     name    : config.name,
-     version : config.version,
-     log     : bunyanWinston.createAdapter(log),
- })
+const server = restify.createServer({
+	name: config.name,
+	version: config.version,
+});
 
- /**
+/**
   * Middleware
   */
- server.use(restifyPlugins.jsonBodyParser({ mapParams: true }))
- server.use(restifyPlugins.acceptParser(server.acceptable))
- server.use(restifyPlugins.queryParser({ mapParams: true }))
- server.use(restifyPlugins.fullResponse())
+server.use(restifyPlugins.jsonBodyParser({ mapParams: true }));
+server.use(restifyPlugins.acceptParser(server.acceptable));
+server.use(restifyPlugins.queryParser({ mapParams: true }));
+server.use(restifyPlugins.fullResponse());
 
- /**
-  * Lift Server, Connect to DB & Bind Routes
+/**
+  * Start Server, Connect to DB & Require Routes
   */
- server.listen(config.port, function() {
+server.listen(config.port, () => {
+	// establish connection to mongodb
+	mongoose.Promise = global.Promise;
+	mongoose.connect(config.db.uri, { useMongoClient: true });
 
-     mongoose.connection.on('error', function(err) {
-         log.error('Mongoose default connection error: ' + err)
-         process.exit(1)
-     })
+	const db = mongoose.connection;
 
-     mongoose.connection.on('open', function(err) {
+	db.on('error', (err) => {
+	    console.error(err);
+		process.exit(1);
+	});
 
-         if (err) {
-             log.error('Mongoose default connection error: ' + err)
-             process.exit(1)
-         }
+	db.once('open', () => {
 
-         log.info(
-             '%s v%s ready to accept connections on port %s in %s environment.',
-             server.name,
-             config.version,
-             config.port,
-             config.env
-         )
+		require('./routes')(server);
 
-         require('./routes')
+		console.log(`Server is listening on port ${config.port}`);
 
-     })
-
-     global.db = mongoose.connect(config.db.uri)
-
- })
+	});
+});

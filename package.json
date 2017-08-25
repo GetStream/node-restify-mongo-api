@@ -1,37 +1,34 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "description": "Starter project for a REST API with Node.js, Restify & MongoDB 🔋",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/GetStream/node-restify-mongo-api.git"
-  },
-  "keywords": [
-    "API",
-    "Boilerplate",
-    "MongoDB",
-    "Restify"
-  ],
-  "author": "Nick Parsons <nick@getstream.io>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/GetStream/node-restify-mongo-api/issues"
-  },
-  "homepage": "https://github.com/GetStream/node-restify-mongo-api#readme",
-  "dependencies": {
-    "bunyan": "^1.8.12",
-    "bunyan-winston-adapter": "^0.2.0",
-    "lodash": "^4.17.4",
-    "mongoose": "^4.11.3",
-    "mongoose-createdmodified": "0.0.2",
-    "mongoose-string-query": "^0.2.5",
-    "restify": "^5.0.0",
-    "restify-errors": "^4.3.0",
-    "restify-plugins": "^1.6.0",
-    "winston": "^2.3.1"
-  }
+	"name": "api",
+	"version": "1.0.1",
+	"description": "Starter project for a REST API with Node.js, Restify & MongoDB 🔋",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/GetStream/node-restify-mongo-api.git"
+	},
+	"keywords": [
+		"API",
+		"Boilerplate",
+		"MongoDB",
+		"Restify"
+	],
+	"author": "Nick Parsons <nparsons08@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/GetStream/node-restify-mongo-api/issues"
+	},
+	"homepage": "https://github.com/GetStream/node-restify-mongo-api#readme",
+	"dependencies": {
+		"mongoose": "^4.11.8",
+		"mongoose-string-query": "^0.2.5",
+		"mongoose-timestamp": "^0.6.0",
+		"restify": "^5.2.0",
+		"restify-errors": "^5.0.0",
+		"restify-plugins": "^1.6.0"
+	}
 }
