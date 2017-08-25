@@ -1,8 +1,8 @@
 'use strict';
 
-const mongoose = require('mongoose'),
-	mongooseStringQuery = require('mongoose-string-query'),
-	createdModified = require('mongoose-createdmodified').createdModifiedPlugin;
+const mongoose = require('mongoose');
+const mongooseStringQuery = require('mongoose-string-query');
+const timestamp = require('mongoose-timestamp');
 
 const TodoSchema = new mongoose.Schema(
 	{
@@ -20,8 +20,8 @@ const TodoSchema = new mongoose.Schema(
 	{ minimize: false },
 );
 
+TodoSchema.plugin(timestamps);
 TodoSchema.plugin(mongooseStringQuery);
-TodoSchema.plugin(createdModified, { index: true });
 
 const Todo = mongoose.model('Todo', TodoSchema);
 module.exports = Todo;

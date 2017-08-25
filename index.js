@@ -47,18 +47,17 @@ server.use(restifyPlugins.fullResponse());
   * Lift Server, Connect to DB & Bind Routes
   */
 server.listen(config.port, function() {
-	mongoose.connection.on('error', function(err) {
-		log.error('Mongoose default connection error: ' + err);
-		process.exit(1);
-	});
-
-	mongoose.connection.on('open', function(err) {
+	// establish connection to mongodb atlas
+	mongodb.connect(config.db.uri, (err, db) => {
 		if (err) {
-			log.error('Mongoose default connection error: ' + err);
+			console.log(
+				'An error occurred while attempting to connect to MongoDB',
+				err,
+			);
 			process.exit(1);
 		}
 
-		log.info(
+		console.log(
 			'%s v%s ready to accept connections on port %s in %s environment.',
 			server.name,
 			config.version,
@@ -66,8 +65,6 @@ server.listen(config.port, function() {
 			config.env,
 		);
 
-		require('./routes');
+		require('./routes')({ db, server });
 	});
-
-	global.db = mongoose.connect(config.db.uri);
 });
