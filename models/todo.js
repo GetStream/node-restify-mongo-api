@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const mongooseStringQuery = require('mongoose-string-query');
-const timestamp = require('mongoose-timestamp');
+const timestamps = require('mongoose-timestamp');
 
 const TodoSchema = new mongoose.Schema(
 	{
@@ -14,7 +14,8 @@ const TodoSchema = new mongoose.Schema(
 		status: {
 			type: String,
 			required: true,
-			enum: ['pending', 'complete', 'overdue'],
+			enum: ['pending', 'complete', 'in progress', 'overdue'],
+			default: 'pending',
 		},
 	},
 	{ minimize: false },

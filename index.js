@@ -3,36 +3,20 @@
 /**
  * Module Dependencies
  */
-const config = require('./config'),
-	restify = require('restify'),
-	bunyan = require('bunyan'),
-	winston = require('winston'),
-	bunyanWinston = require('bunyan-winston-adapter'),
-	mongoose = require('mongoose'),
-	restifyPlugins = require('restify-plugins');
-
-/**
- * Logging
- */
-global.log = new winston.Logger({
-	transports: [
-		new winston.transports.Console({
-			level: 'info',
-			timestamp: () => {
-				return new Date().toString();
-			},
-			json: true,
-		}),
-	],
-});
+const config = require('./config');
+const restify = require('restify');
+const bunyan = require('bunyan');
+const winston = require('winston');
+const bunyanWinston = require('bunyan-winston-adapter');
+const mongoose = require('mongoose');
+const restifyPlugins = require('restify-plugins');
 
 /**
   * Initialize Server
   */
-global.server = restify.createServer({
+const server = restify.createServer({
 	name: config.name,
 	version: config.version,
-	log: bunyanWinston.createAdapter(log),
 });
 
 /**
@@ -44,27 +28,25 @@ server.use(restifyPlugins.queryParser({ mapParams: true }));
 server.use(restifyPlugins.fullResponse());
 
 /**
-  * Lift Server, Connect to DB & Bind Routes
+  * Start Server, Connect to DB & Require Routes
   */
-server.listen(config.port, function() {
-	// establish connection to mongodb atlas
-	mongodb.connect(config.db.uri, (err, db) => {
-		if (err) {
-			console.log(
-				'An error occurred while attempting to connect to MongoDB',
-				err,
-			);
-			process.exit(1);
-		}
+server.listen(config.port, () => {
+	// establish connection to mongodb
+	mongoose.Promise = global.Promise;
+	mongoose.connect(config.db.uri, { useMongoClient: true });
 
-		console.log(
-			'%s v%s ready to accept connections on port %s in %s environment.',
-			server.name,
-			config.version,
-			config.port,
-			config.env,
-		);
+	const db = mongoose.connection;
 
-		require('./routes')({ db, server });
+	db.on('error', (err) => {
+	    console.error(err);
+		process.exit(1);
+	});
+
+	db.once('open', () => {
+
+		require('./routes')(server);
+
+		console.log(`Server is listening on port ${config.port}`);
+
 	});
 });

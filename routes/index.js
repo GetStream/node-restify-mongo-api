@@ -10,14 +10,12 @@ const errors = require('restify-errors');
  */
 const Todo = require('../models/todo');
 
-module.exports = function(ctx) {
-	const db = ctx.db;
-	const server = ctx.server;
+module.exports = function(server) {
 
 	/**
 	 * POST
 	 */
-	server.post('/todos', function(req, res, next) {
+	server.post('/todos', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -29,7 +27,7 @@ module.exports = function(ctx) {
 		let todo = new Todo(data);
 		todo.save(function(err) {
 			if (err) {
-				log.error(err);
+				console.error(err);
 				return next(new errors.InternalError(err.message));
 				next();
 			}
@@ -42,10 +40,10 @@ module.exports = function(ctx) {
 	/**
 	 * LIST
 	 */
-	server.get('/todos', function(req, res, next) {
+	server.get('/todos', (req, res, next) => {
 		Todo.apiQuery(req.params, function(err, docs) {
 			if (err) {
-				log.error(err);
+				console.error(err);
 				return next(
 					new errors.InvalidContentError(err.errors.name.message),
 				);
@@ -59,10 +57,10 @@ module.exports = function(ctx) {
 	/**
 	 * GET
 	 */
-	server.get('/todos/:todo_id', function(req, res, next) {
+	server.get('/todos/:todo_id', (req, res, next) => {
 		Todo.findOne({ _id: req.params.todo_id }, function(err, doc) {
 			if (err) {
-				log.error(err);
+				console.error(err);
 				return next(
 					new errors.InvalidContentError(err.errors.name.message),
 				);
@@ -76,7 +74,7 @@ module.exports = function(ctx) {
 	/**
 	 * UPDATE
 	 */
-	server.put('/todos/:todo_id', function(req, res, next) {
+	server.put('/todos/:todo_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -91,7 +89,7 @@ module.exports = function(ctx) {
 
 		Todo.findOne({ _id: req.params.todo_id }, function(err, doc) {
 			if (err) {
-				log.error(err);
+				console.error(err);
 				return next(
 					new errors.InvalidContentError(err.errors.name.message),
 				);
@@ -105,7 +103,7 @@ module.exports = function(ctx) {
 
 			Todo.update({ _id: data._id }, data, function(err) {
 				if (err) {
-					log.error(err);
+					console.error(err);
 					return next(
 						new errors.InvalidContentError(err.errors.name.message),
 					);
@@ -120,10 +118,10 @@ module.exports = function(ctx) {
 	/**
 	 * DELETE
 	 */
-	server.del('/todos/:todo_id', function(req, res, next) {
+	server.del('/todos/:todo_id', (req, res, next) => {
 		Todo.remove({ _id: req.params.todo_id }, function(err) {
 			if (err) {
-				log.error(err);
+				console.error(err);
 				return next(
 					new errors.InvalidContentError(err.errors.name.message),
 				);
