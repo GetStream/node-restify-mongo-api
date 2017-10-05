@@ -32,16 +32,13 @@ server.listen(config.port, () => {
 
 	const db = mongoose.connection;
 
-	db.on('error', (err) => {
-	    console.error(err);
+	db.on('error', err => {
+		console.error(err);
 		process.exit(1);
 	});
 
 	db.once('open', () => {
-
 		require('./routes')(server);
-
 		console.log(`Server is listening on port ${config.port}`);
-
 	});
 });
