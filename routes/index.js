@@ -16,7 +16,7 @@ module.exports = function(server) {
 	server.post('/todos', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
-				new errors.InvalidContentError("Expects 'application/json'"),
+				new errors.InvalidContentError("Expects 'application/json'")
 			);
 		}
 
@@ -43,7 +43,7 @@ module.exports = function(server) {
 			if (err) {
 				console.error(err);
 				return next(
-					new errors.InvalidContentError(err.errors.name.message),
+					new errors.InvalidContentError(err.errors.name.message)
 				);
 			}
 
@@ -60,7 +60,7 @@ module.exports = function(server) {
 			if (err) {
 				console.error(err);
 				return next(
-					new errors.InvalidContentError(err.errors.name.message),
+					new errors.InvalidContentError(err.errors.name.message)
 				);
 			}
 
@@ -75,7 +75,7 @@ module.exports = function(server) {
 	server.put('/todos/:todo_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
-				new errors.InvalidContentError("Expects 'application/json'"),
+				new errors.InvalidContentError("Expects 'application/json'")
 			);
 		}
 
@@ -89,13 +89,13 @@ module.exports = function(server) {
 			if (err) {
 				console.error(err);
 				return next(
-					new errors.InvalidContentError(err.errors.name.message),
+					new errors.InvalidContentError(err.errors.name.message)
 				);
 			} else if (!doc) {
 				return next(
 					new errors.ResourceNotFoundError(
-						'The resource you requested could not be found.',
-					),
+						'The resource you requested could not be found.'
+					)
 				);
 			}
 
@@ -103,7 +103,7 @@ module.exports = function(server) {
 				if (err) {
 					console.error(err);
 					return next(
-						new errors.InvalidContentError(err.errors.name.message),
+						new errors.InvalidContentError(err.errors.name.message)
 					);
 				}
 
@@ -121,7 +121,7 @@ module.exports = function(server) {
 			if (err) {
 				console.error(err);
 				return next(
-					new errors.InvalidContentError(err.errors.name.message),
+					new errors.InvalidContentError(err.errors.name.message)
 				);
 			}
 
