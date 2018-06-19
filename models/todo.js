@@ -16,7 +16,7 @@ const TodoSchema = new mongoose.Schema(
 			default: 'pending',
 		},
 	},
-	{ minimize: false },
+	{ minimize: false }
 );
 
 TodoSchema.plugin(timestamps);
